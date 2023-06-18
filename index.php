@@ -20,13 +20,33 @@
                 if (this.readyState == 4 && this.status === 200) {
                     let response = JSON.parse(xhr.responseText);
                     let distance = response.distance;
-                    console.log(response);
                     sonuc.innerHTML = `${sehir1} ve ${sehir2} arasındaki kuş uçumu mesafe : ${distance.toFixed(2)} km`;
                 } else {
                     sonuc.innerHTML = xhr.status;
                 }
             }
             xhr.open("POST", "calculate.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("sehir1=" + encodeURIComponent(sehir1) + "&sehir2=" + encodeURIComponent(sehir2));
+        }
+
+        function dijkstraHesapla(e) {
+            e.preventDefault();
+            const sehir1 = document.getElementById("sehir1").value;
+            const sehir2 = document.getElementById("sehir2").value;
+            const sonuc = document.getElementById("sonuc");
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    sonuc.innerHTML = response.join("->");
+                } else {
+                    sonuc.innerHTML = xhr.status;
+                }
+            }
+            xhr.open("POST", "dijkstra.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send("sehir1=" + encodeURIComponent(sehir1) + "&sehir2=" + encodeURIComponent(sehir2));
         }
@@ -41,6 +61,7 @@
         <label for="sehir2">2. Şehir</label>
         <input type="text" id="sehir2" name="sehir2" placeholder="Sehir ismi giriniz..." style="margin-top: 5px;"><br />
         <button type="submit" onclick="Hesapla(event)" style="margin-top: 5px;">Hesapla</button>
+        <button type="submit" onclick="dijkstraHesapla(event)" style="margin-top: 5px;">Dijkstra Hesapla</button>
     </form>
     <p id="sonuc"></p>
     <div id="map"></div>

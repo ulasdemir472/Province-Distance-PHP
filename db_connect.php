@@ -3,7 +3,7 @@ function OpenCon()
 {
     $dbhost = "localhost";
     $dbuser = "root";
-    $dbpass = "ulasd9137";
+    $dbpass = "password";
     $db = "Sehirler";
     $conn = new mysqli($dbhost, $dbuser, $dbpass, $db) or die("Connect failed: %s\n" . $conn->error);
     // Check connection
@@ -11,19 +11,25 @@ function OpenCon()
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // $sql = "CREATE TABLE iller (
+    // komsu_sehirler tablosunu oluşturma
+    // $sql2 = "CREATE TABLE komsu_sehirler (
     //     id INT PRIMARY KEY AUTO_INCREMENT,
-    //     isim VARCHAR(50) NOT NULL,
-    //     plaka INT NOT NULL,
-    //     enlem DECIMAL(9,6) NOT NULL,
-    //     boylam DECIMAL(9,6) NOT NULL
+    //     sehir_id INT,
+    //     sehir_isim VARCHAR(50),
+    //     komsu_sehir_id INT,
+    //     komsu_sehir_isim VARCHAR(50),
+    //     FOREIGN KEY (sehir_id) REFERENCES iller(id),
+    //     FOREIGN KEY (komsu_sehir_id) REFERENCES iller(id)
     // )";
 
-    // if ($conn->query($sql) === TRUE) {
-    //     echo "Table iller created successfully";
+    // if ($conn->query($sql2) === TRUE) {
+    //     echo "Table komsu-iller created successfully";
     // } else {
-    //     echo "Error: " . $sql . "<br>" . $conn->error;
+    //     echo "Error: " . $sql2 . "<br>" . $conn->error;
     // }
+
+
+
     // $sql = "INSERT INTO iller (isim, plaka, enlem, boylam) VALUES
     // ('Adana', 1, 37.000000, 35.321333),
     // ('Adıyaman', 2, 37.764811, 38.278630),
